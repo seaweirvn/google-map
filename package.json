@@ -1,0 +1,24 @@
+{
+  "name": "seaweir-vietnam-maps-scraper",
+  "version": "1.0.0",
+  "description": "越南 Google Maps 渔具店采集系统，支持 CSV 导出、飞书 Bitable 同步、去重和断点续爬。",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "scrape": "node index.js scrape",
+    "upload": "node index.js upload",
+    "migrate:feishu": "node scripts/migrate-feishu-customer-id.js",
+    "migrate:feishu:phones": "node scripts/migrate-feishu-phone-local.js",
+    "check": "node --check index.js",
+    "playwright:install": "npx playwright install chromium"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "playwright": "^1.49.1"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}
