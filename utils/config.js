@@ -13,6 +13,8 @@ const toInt = (value, fallback) => {
 
 const resolveProjectPath = (value) => path.resolve(process.cwd(), value);
 const envOrDefault = (name, fallback) => (process.env[name] === undefined ? fallback : process.env[name]);
+const envOrLegacyDefault = (name, legacyName, fallback) =>
+  process.env[name] === undefined ? envOrDefault(legacyName, fallback) : process.env[name];
 const defaultAiEndpoint = (provider) => {
   if (provider === "volcano_engine") {
     return "https://ark.cn-beijing.volces.com/api/v3/chat/completions";
@@ -69,27 +71,31 @@ export const config = {
   searchLocationsFile: process.env.SEARCH_LOCATIONS_FILE || "keywords/vietnam-locations.json",
   searchRetryLimit: toInt(process.env.SEARCH_RETRY_LIMIT, 2),
   feishu: {
-    appId: process.env.FEISHU_APP_ID || "",
-    appSecret: process.env.FEISHU_APP_SECRET || "",
-    appToken: process.env.FEISHU_BITABLE_APP_TOKEN || "",
-    tableId: process.env.FEISHU_TABLE_ID || "",
+    appId: process.env.FEISHU_VN_APP_ID || process.env.FEISHU_APP_ID || "",
+    appSecret: process.env.FEISHU_VN_APP_SECRET || process.env.FEISHU_APP_SECRET || "",
+    appToken: process.env.FEISHU_VN_BITABLE_APP_TOKEN || process.env.FEISHU_BITABLE_APP_TOKEN || "",
+    tableId: process.env.FEISHU_VN_TABLE_ID || process.env.FEISHU_TABLE_ID || "",
     fields: {
-      name: envOrDefault("FEISHU_FIELD_NAME", "店铺名称"),
-      customerId: envOrDefault("FEISHU_FIELD_CUSTOMER_ID", "客户ID"),
-      phone: envOrDefault("FEISHU_FIELD_PHONE", "电话"),
-      address: envOrDefault("FEISHU_FIELD_ADDRESS", "地址"),
-      website: envOrDefault("FEISHU_FIELD_WEBSITE", "网站"),
-      mapsUrl: envOrDefault("FEISHU_FIELD_MAPS_URL", "Google Maps链接"),
-      rating: envOrDefault("FEISHU_FIELD_RATING", "评分"),
-      reviewCount: envOrDefault("FEISHU_FIELD_REVIEW_COUNT", "评论数"),
-      keyword: envOrDefault("FEISHU_FIELD_KEYWORD", "搜索关键词"),
-      province: envOrDefault("FEISHU_FIELD_PROVINCE", "省市"),
-      shopSummary: envOrDefault("FEISHU_FIELD_SHOP_SUMMARY", ""),
-      productTags: envOrDefault("FEISHU_FIELD_PRODUCT_TAGS", ""),
-      fishingType: envOrDefault("FEISHU_FIELD_FISHING_TYPE", ""),
-      analysisSource: envOrDefault("FEISHU_FIELD_ANALYSIS_SOURCE", ""),
-      analysisConfidence: envOrDefault("FEISHU_FIELD_ANALYSIS_CONFIDENCE", ""),
-      aiFlag: envOrDefault("FEISHU_FIELD_AI_FLAG", "")
+      name: envOrLegacyDefault("FEISHU_VN_FIELD_NAME", "FEISHU_FIELD_NAME", "店铺名称"),
+      customerId: envOrLegacyDefault("FEISHU_VN_FIELD_CUSTOMER_ID", "FEISHU_FIELD_CUSTOMER_ID", "客户ID"),
+      phone: envOrLegacyDefault("FEISHU_VN_FIELD_PHONE", "FEISHU_FIELD_PHONE", "电话"),
+      address: envOrLegacyDefault("FEISHU_VN_FIELD_ADDRESS", "FEISHU_FIELD_ADDRESS", "地址"),
+      website: envOrLegacyDefault("FEISHU_VN_FIELD_WEBSITE", "FEISHU_FIELD_WEBSITE", "网站"),
+      mapsUrl: envOrLegacyDefault("FEISHU_VN_FIELD_MAPS_URL", "FEISHU_FIELD_MAPS_URL", "Google Maps链接"),
+      rating: envOrLegacyDefault("FEISHU_VN_FIELD_RATING", "FEISHU_FIELD_RATING", "评分"),
+      reviewCount: envOrLegacyDefault("FEISHU_VN_FIELD_REVIEW_COUNT", "FEISHU_FIELD_REVIEW_COUNT", "评论数"),
+      keyword: envOrLegacyDefault("FEISHU_VN_FIELD_KEYWORD", "FEISHU_FIELD_KEYWORD", "搜索关键词"),
+      province: envOrLegacyDefault("FEISHU_VN_FIELD_PROVINCE", "FEISHU_FIELD_PROVINCE", "省市"),
+      shopSummary: envOrLegacyDefault("FEISHU_VN_FIELD_SHOP_SUMMARY", "FEISHU_FIELD_SHOP_SUMMARY", ""),
+      productTags: envOrLegacyDefault("FEISHU_VN_FIELD_PRODUCT_TAGS", "FEISHU_FIELD_PRODUCT_TAGS", ""),
+      fishingType: envOrLegacyDefault("FEISHU_VN_FIELD_FISHING_TYPE", "FEISHU_FIELD_FISHING_TYPE", ""),
+      analysisSource: envOrLegacyDefault("FEISHU_VN_FIELD_ANALYSIS_SOURCE", "FEISHU_FIELD_ANALYSIS_SOURCE", ""),
+      analysisConfidence: envOrLegacyDefault(
+        "FEISHU_VN_FIELD_ANALYSIS_CONFIDENCE",
+        "FEISHU_FIELD_ANALYSIS_CONFIDENCE",
+        ""
+      ),
+      aiFlag: envOrLegacyDefault("FEISHU_VN_FIELD_AI_FLAG", "FEISHU_FIELD_AI_FLAG", "")
     }
   },
   analysis: {

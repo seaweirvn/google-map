@@ -109,20 +109,22 @@ AI_MODEL=
 
 ## 飞书配置教程
 
+当前飞书表为越南（VN）数据，环境变量统一使用 `FEISHU_VN_*` 前缀。后续扩展其他国家时按国家代码新增配置，例如印尼 `FEISHU_ID_*`、泰国 `FEISHU_TH_*`、马来 `FEISHU_MY_*`。
+
 1. 打开飞书开放平台，创建企业自建应用。
 2. 记录 `App ID` 和 `App Secret`，填入 `.env`：
 
 ```env
-FEISHU_APP_ID=cli_xxx
-FEISHU_APP_SECRET=xxx
+FEISHU_VN_APP_ID=cli_xxx
+FEISHU_VN_APP_SECRET=xxx
 ```
 
 3. 在权限管理中添加多维表格相关权限，并发布应用版本。
 4. 打开目标多维表格，从 URL 中获取 `app_token` 和 `table_id`：
 
 ```env
-FEISHU_BITABLE_APP_TOKEN=xxx
-FEISHU_TABLE_ID=tblxxx
+FEISHU_VN_BITABLE_APP_TOKEN=xxx
+FEISHU_VN_TABLE_ID=tblxxx
 ```
 
 5. 建议飞书表字段名：
@@ -141,7 +143,7 @@ Google Maps链接
 分类
 ```
 
-字段名如果不一样，可以在 `.env` 里修改 `FEISHU_FIELD_*`。
+字段名如果不一样，可以在 `.env` 里修改 `FEISHU_VN_FIELD_*`。
 
 ## 运行
 

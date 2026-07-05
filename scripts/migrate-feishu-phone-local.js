@@ -52,7 +52,7 @@ const updateRecordsBatch = async (records) => {
 
 const main = async () => {
   const phoneField = config.feishu.fields.phone;
-  if (!phoneField) throw new Error("FEISHU_FIELD_PHONE 未配置");
+  if (!phoneField) throw new Error("FEISHU_VN_FIELD_PHONE 未配置");
 
   const records = await listRecords();
   const updates = [];

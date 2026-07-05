@@ -11,6 +11,8 @@ output/*.json
 logs/*.log
 data/*.json
 
+tmp-runtime/
+
 playwright-report/
 test-results/
 .cache/
